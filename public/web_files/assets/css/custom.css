@@ -1,0 +1,464 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+.custome-navbar {
+    border-radius: 5px;
+}
+
+nav {
+    padding: 0px !important;
+}
+
+.nav-item {
+    padding: 8px;
+}
+
+.nav-link {
+    font-weight: bold;
+}
+
+.active-navbar-link {
+    background-color: #ffb908;
+}
+
+.active-navbar-link .nav-link {
+    color: white !important;
+}
+
+.landing-page {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    position: relative;
+    overflow: hidden !important;
+    border-top: #ffb908 solid;
+
+}
+
+@media screen and (min-width :500px) {
+    .landing-page {
+        background-image: url('../img/landdingPage3.jpg');
+        background-attachment: fixed;
+    }
+}
+
+@media screen and (max-width :500px) {
+    .landing-page {
+        background-image: url('../img/landdingPage4.jpg');
+        background-attachment: fixed;
+    }
+}
+
+.landding-text {
+    text-align: center;
+    width: 100%;
+    font-size: 160px;
+    position: relative;
+    font-family: 'Paytone One', sans-serif;
+    color: #ffb908;
+}
+
+.text-postion {
+    position: absolute;
+    top: 40%;
+
+}
+
+.landding-text::after {
+    content: 'food zone';
+    font-size: 20px !important;
+    position: absolute;
+    bottom: -39px;
+    left: calc(50% - 311px);
+    font-family: 'Pacifico', cursive !important;
+    font-size: 92px !important;
+    font-weight: bold;
+    color: white;
+}
+
+/* media query text to be responsive */
+
+
+@media (max-width :500px) {
+    .landding-text {
+        font-size: 80px !important;
+    }
+}
+
+@media (max-width :1000px) {
+    .landding-text::after {
+        font-size: 60px !important;
+        position: absolute;
+        bottom: -20px;
+        left: calc(50% - 200px);
+    }
+}
+
+@media (max-width :500px) {
+    .landding-text::after {
+        font-size: 30px !important;
+        position: absolute;
+        bottom: -20px;
+        left: calc(50% - 100px);
+    }
+}
+
+/* end of  media query text to be responsive */
+
+/* new-order-section */
+
+.new-order-section {
+    position: relative;
+    background-image: url('../img/order-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.new-order-title {
+    font-size: 35px;
+    font-weight: bold;
+    font-family: 'Pacifico', cursive !important;
+    padding: 50px 0px 0px 0px;
+    color: #ffb908;
+}
+
+.new-order-sub-title {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Paytone One', sans-serif;
+    padding: 20px 0px 50px 0px;
+    color: rgb(58, 3, 3);
+}
+
+.menu-card {
+    height: 300px;
+    width: 250px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='300' height='250' preserveAspectRatio='none' viewBox='0 0 300 250'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1016%26quot%3b)' fill='none'%3e%3crect width='300' height='250' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M222 85L221 185' stroke-width='8' stroke='url(%23SvgjsLinearGradient1017)' stroke-linecap='round' class='Up'%3e%3c/path%3e%3cpath d='M6 213L5 132' stroke-width='6' stroke='url(%23SvgjsLinearGradient1018)' stroke-linecap='round' class='Down'%3e%3c/path%3e%3cpath d='M103 206L102 383' stroke-width='10' stroke='url(%23SvgjsLinearGradient1018)' stroke-linecap='round' class='Down'%3e%3c/path%3e%3cpath d='M143 217L142 387' stroke-width='6' stroke='url(%23SvgjsLinearGradient1017)' stroke-linecap='round' class='Up'%3e%3c/path%3e%3cpath d='M4 140L3 214' stroke-width='10' stroke='url(%23SvgjsLinearGradient1017)' stroke-linecap='round' class='Up'%3e%3c/path%3e%3cpath d='M120 117L119 282' stroke-width='6' stroke='url(%23SvgjsLinearGradient1018)' stroke-linecap='round' class='Down'%3e%3c/path%3e%3cpath d='M144 140L143 -40' stroke-width='8' stroke='url(%23SvgjsLinearGradient1018)' stroke-linecap='round' class='Down'%3e%3c/path%3e%3cpath d='M138 34L137 -97' stroke-width='6' stroke='url(%23SvgjsLinearGradient1017)' stroke-linecap='round' class='Up'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1016'%3e%3crect width='300' height='250' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='0%25' y1='100%25' x2='0%25' y2='0%25' id='SvgjsLinearGradient1017'%3e%3cstop stop-color='rgba(28%2c 83%2c 142%2c 0)' offset='0'%3e%3c/stop%3e%3cstop stop-color='%231c538e' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='0%25' y1='0%25' x2='0%25' y2='100%25' id='SvgjsLinearGradient1018'%3e%3cstop stop-color='rgba(28%2c 83%2c 142%2c 0)' offset='0'%3e%3c/stop%3e%3cstop stop-color='%231c538e' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
+    border: solid;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    position: relative;
+}
+
+.card-title {
+    font-size: 35px;
+    font-weight: bold;
+    font-family: 'Pacifico', cursive !important;
+    color: #ffb908;
+}
+
+.card-desc {
+    /* width: 80% !important; */
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Paytone One', sans-serif;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    right: calc(50%-125px);
+    bottom: 120px;
+    text-align: center;
+}
+
+.cards-btn {
+    width: 250px;
+    position: absolute;
+    right: calc(50%-125px);
+    bottom: 30px;
+    background-color: #ffb908e9;
+    color: white;
+    font-family: 'Paytone One', sans-serif;
+}
+
+/* edn of new-order-section */
+
+/* start of menu */
+
+ul {
+    list-style-type: none;
+}
+
+.item-img-div {
+    display: inline-block;
+    margin-right: 25px;
+    border-radius: 50%;
+    border: solid #ffb9084d;
+    overflow: hidden;
+}
+
+.item-img {
+    height: 100px;
+    width: 100px;
+}
+
+.item-title {
+    color: rgb(0, 0, 0);
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.item-price {
+    color: #ffb908e9;
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.full-menu-btn {
+    background-color: #ffb908e9;
+    color: white;
+    font-family: 'Pacifico', cursive !important;
+    margin-bottom: 30px;
+}
+
+/* end of menu */
+
+/* start of about us  */
+
+.about-us-sec {
+    position: relative;
+    background-image: url("../img/order-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contact-card {
+    height: 300px;
+    width: 250px;
+    background-image: url('../img/contact-us.jpg');
+    border: solid white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    position: relative;
+}
+
+.find-resturant-card {
+    height: 300px;
+    width: 250px;
+    background-image: url('../img/find-resturant.jpg');
+    border: solid white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    position: relative;
+}
+
+.rate-card {
+    height: 300px;
+    width: 250px;
+    background-image: url('../img/rate.jpg');
+    border: solid white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    position: relative;
+}
+
+.team-card {
+    height: 300px;
+    width: 250px;
+    background-image: url('../img/team.jpg');
+    border: solid white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    position: relative;
+}
+
+.about-card-title {
+    font-size: 35px;
+    font-weight: bold;
+    font-family: 'Pacifico', cursive !important;
+    color: #ffb908;
+}
+
+.about-card-desc {
+    width: 80% !important;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Paytone One', sans-serif;
+    color: black;
+    text-align: center;
+}
+
+/* end of about us  */
+
+.menu-landding {
+    padding: 0px;
+    margin: 0px;
+    background-image: url('../img/order-background.jpg');
+}
+
+.main-categories {
+    background-color: wheat;
+    padding: 11px;
+    font-weight: bold;
+    color: orange;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.to-top-button {
+    width: 35px;
+    height: 35px;
+    position: fixed;
+    bottom: 19px;
+    right: 30px;
+    border-radius: 50%;
+    background-color: #ffb908;
+    display: none;
+}
+
+/* new Order Page */
+
+.new-order-main-categories-col {
+    border: solid 1px rgba(128, 128, 128, 0.57);
+    border-radius: 15px;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 500px;
+}
+
+.new-order-categories-col {
+    border: solid 1px rgba(128, 128, 128, 0.57);
+    border-radius: 15px;
+    overflow-y: scroll;
+    height: 500px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.new-order-items-col {
+    border: solid 1px rgba(128, 128, 128, 0.57);
+    border-radius: 15px;
+    overflow-x: scroll;
+    height: 500px;
+}
+
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+small {
+    font-size: 10px;
+}
+
+.main-categories-name {
+    margin: 0px;
+    padding: 5px;
+    color: black;
+    font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    padding-left: 20px;
+}
+
+.main-categories-name:hover {
+    background-color: #ffb908;
+}
+
+a {
+    color: unset;
+}
+
+a:hover {
+    color: unset;
+}
+
+.sub-title {
+    padding-top: 20px;
+    padding-left: 20px;
+    color: #ffb700;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.category-sub-name {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 50px;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    width: 100%;
+    background-color: #ffb70023;
+}
+
+span {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.tr-new-order {
+    height: 60px;
+}
+
+.personal-input {
+    height: 42px;
+    background-color: transparent;
+    border: #ffb700 solid 1px;
+    border-radius: 10px;
+    padding: 12px 20px;
+    color: #ffb700;
+    font-weight: bold;
+}
+
+
+/* scroll style */
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #ffb908;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c99105;
+}
+
+.final-reset {
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px gray;
+    background-color: white;
+}
+
+#loading {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255);
+    z-index: 99;
+}
+
+#loading-image {
+    z-index: 100;
+}

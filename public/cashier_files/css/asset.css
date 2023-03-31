@@ -1,0 +1,156 @@
+body {
+    background-color: #f6f6f0bb;
+}
+
+.cashier_header {
+    background-color: #f6f6f0bb !important;
+    border-bottom: #e9e9e2 solid !important;
+}
+
+.site-navbar {
+    background-color: unset !important;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f148;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #05758c74;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #03819a;
+}
+
+.head_main_category {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    position: sticky;
+    top: 0px;
+    background-color: #3897fd;
+}
+
+.head_main_category_button {
+    min-width: 90px;
+    padding: 5px;
+    font-size: 20px;
+    display: inline-block !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #d6d1ce91;
+    text-transform: uppercase;
+    color: black;
+
+}
+
+.head_main_category_button:hover {
+    background-color: #cbc7c5ce;
+    color: rgb(54, 53, 53);
+}
+
+.item_button {
+    min-width: 150px;
+    min-height: 150px;
+    font-size: 20px;
+    display: inline-block !important;
+    border: #85594d9f solid;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #d6d1ce91;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.print_receipt {
+    background-color: #03819a;
+    height: 50px;
+}
+
+.print_receipt_button {
+    color: white;
+    font-size: 25px;
+    height: 100%;
+    width: 100%;
+}
+
+.print_receipt_button:hover {
+    color: white;
+}
+
+.orders_table_head {
+    position: sticky;
+    top: -1px;
+    z-index: 1;
+    background-color: #3897fd;
+}
+
+.orders_section {
+    /* height: 250px; */
+    overflow-y: scroll;
+}
+
+.main_and_categories_section {
+    /* height: 330px; */
+    overflow-y: scroll;
+
+}
+
+.ov_y_scr {
+    overflow-y: scroll;
+}
+
+.search_number {
+    margin: 0px;
+    max-width: 72px;
+    min-width: 65px
+}
+
+.h-850 {
+    height: 580px
+}
+
+.single-order-table {
+    overflow: auto;
+    height: 100px;
+}
+
+.single-order-table-head {
+    position: sticky;
+    top: -1px;
+    z-index: 1;
+    background-color: gray
+}
+
+.h-100-px {
+    height: 100px;
+}
+
+.w-45-px {
+    width: 45px
+}
+
+.receipt-text {
+    font-size: 20px !important;
+}
+
+.h-25-px {
+    height: 25px;
+}
+
+.w-40-px {
+    width: 40px;
+}

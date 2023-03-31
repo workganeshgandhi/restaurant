@@ -1,0 +1,13 @@
+{
+    "name": "Cashier",
+    "alias": "cashier",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Cashier\\Providers\\CashierServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
