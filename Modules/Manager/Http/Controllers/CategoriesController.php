@@ -18,67 +18,8 @@ class CategoriesController extends Controller
 {
     public function index(Request $request)
     {
-        //return $data = Category::with('main_category')->get();
-        // return $data->translate('en')->name;
-        // return $data->images ;
-      // return $decoded = json_decode($data->images);
-        if ($request->ajax()) {
-            $data = Category::with('main_category')->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                     $decoded = json_decode($row->images);
-                     $images = '';
-                     foreach ($decoded as $image) {
-                        $path = asset('uploaded/Category/' . $image);
-                        $images = '<img class="image-style mr-4" src="' . $path . '" alt="">';
-                    }
-                    $btn = '
-                    <a href="' . route("category.edit", $row->id) . '" class="edit btn btn-dark btn-sm">Update</a>
-                    <a href="' . route("category.destroy", $row->id) . '" class="edit btn btn-danger btn-sm">Delete</a>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#category' . $row->id . '">
-                    view
-                    </button>
-                    <div class="modal fade" id="category' . $row->id . '" tabindex="-1" role="dialog" aria-labelledby="category' . $row->id . 'Label" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="category' . $row->id . 'Label">' . $row->name . '</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                        <div class="w-100 d-flex justify-content-start">
-                           <strong> Main Category : </strong>
-                           ' . $row->main_category->name . '
-                        </div>
-                        <div class="w-100 d-flex justify-content-start">
-                           <strong> price : </strong>
-                           ' . $row->price . '
-                        </div>
-                        <div class="w-100 mt-4 d-flex justify-content-center">
-                           <div>' . $images . '</div>
-                        </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
-
-                    ';
-
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('manager::pages.category.index');
+        $categories = Category::with('main_category')->latest()->get();
+        return view('manager::pages.category.index', compact('categories'));
     }
 
     public function create()

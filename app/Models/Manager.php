@@ -12,7 +12,7 @@ class Manager extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'mobile', 'password','salary_id','branch_id'];
+    protected $fillable = ['name', 'email', 'address', 'mobile', 'national_id', 'join_date', 'salary_state', 'password', 'salary_id', 'branch_id'];
 
     protected $hidden = [
         'password', 'remember_token',

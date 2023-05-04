@@ -14,71 +14,9 @@ class OffersController extends Controller
 {
     public function index(Request $request)
     {
-        //return $data = Offer::get();
-        if ($request->ajax()) {
-            $data = Offer::get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $activeClass = '';
-                    $changeTo = '';
-                    if ($row->active == 1) {
-                        $activeClass = 'btn-danger';
-                        $changeTo = 'Inactive';
-                    } else {
-                        $activeClass = 'btn-success';
-                        $changeTo = 'Active';
-                    }
-                    $btn = '
-                    <button type="submit" id="get'.$row->id.'" data-url="' . route('offer.activation', $row->id) . '" data-offer="' . $row->id . '" class="changeBtn edit btn ' . $activeClass . ' btn-sm">' . $changeTo . '</button>
+        $offers = Offer::get();
 
-                    <a href="' . route("offer.edit", $row->id) . '" class="edit btn btn-dark btn-sm">Update</a>
-                    <a href="' . route("offer.destroy", $row->id) . '" class="edit btn btn-danger btn-sm">Delete</a>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#offer' . $row->id . '">
-                    view
-                    </button>
-
-                    <div class="modal fade" id="offer' . $row->id . '" tabindex="-1" role="dialog" aria-labelledby="offer' . $row->id . 'Label" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="offer' . $row->id . 'Label">' . $row->name . '</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                           <div class="row">
-                           <div class="col-md-6">
-                           <div> <strong>Name</strong>  : ' . $row->name . '</div>
-                           <div> <strong>Discount</strong> : ' . $row->discount . '</div>
-                           <div> <strong>Percentage</strong> : ' . $row->percentage . '</div>
-
-                           </div>
-                           <div class="col-md-6">
-                           <div> <strong>Start at</strong> : ' . $row->start_at . '</div>
-                           <div> <strong>End at</strong> : ' . $row->end_at . '</div>
-
-                           </div>
-                           </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
-
-                    ';
-
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('manager::pages.offer.index');
+        return view('manager::pages.offer.index', compact('offers'));
     }
 
     public function create()
@@ -96,6 +34,7 @@ class OffersController extends Controller
         //return $request;
         $validated = $request->validate([
             'name' => 'required|unique:offers',
+            'code' => 'required|unique:offers',
             'discount' => 'required_without:percentage',
             'percentage' => 'required_without:discount',
             'start_at' => 'required|date',
@@ -104,6 +43,7 @@ class OffersController extends Controller
         try {
             $stored = Offer::create([
                 'name' => $request->name,
+                'code' => $request->code,
                 'discount' =>  $request->discount,
                 'percentage' =>  $request->percentage,
                 'start_at' =>  $request->start_at,
@@ -139,6 +79,7 @@ class OffersController extends Controller
         }
         $validated = $request->validate([
             'name' => 'required|' . Rule::unique('offers', 'id')->ignore($id),
+            'code' => 'required|' . Rule::unique('offers', 'code')->ignore($id),
             'discount' => 'required_without:percentage',
             'percentage' => 'required_without:discount',
             'start_at' => 'required|date',
@@ -147,6 +88,7 @@ class OffersController extends Controller
         try {
             $stored = Offer::where('id', $id)->update([
                 'name' => $request->name,
+                'code' => $request->code,
                 'discount' =>  $request->discount,
                 'percentage' =>  $request->percentage,
                 'start_at' =>  $request->start_at,

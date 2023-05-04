@@ -15,8 +15,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <a href="{{ route('branch.create') }}" class="btn btn-info btn-sm"> <i
-                                    class="fas fa-plus"></i> New Branch </a>
+                            <a href="{{ route('branch.create') }}" class="btn btn-info btn-sm"> <i class="fas fa-plus"></i>
+                                New Branch </a>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,19 +25,71 @@
         <!-- /.content-header -->
         <div class="content">
             <div class="container-fluid">
-                <table class="table data-table">
+                <table class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Number</th>
-                            <th>Address</th>
-                            <th>Tables</th>
-                            <th>Open Date</th>
-                            <th>Action</th>
+                            <th scope="col">#</th>
+                            <th scope="col">number</th>
+                            <th scope="col">address</th>
+                            <th scope="col">tables</th>
+                            <th scope="col">open date</th>
+                            <th scope="col">actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($branches as $index => $branch)
+                            <tr>
 
+                                <td>{{ $index }}</td>
+                                <td>{{ $branch->number }}</td>
+                                <td>{{ $branch->address }}</td>
+                                <td>{{ $branch->tables }}</td>
+                                <td>{{ $branch->open_date }}</td>
+                                <td>
+                                    <a href="{{ route('branch.edit', $branch->id) }}"
+                                        class="edit btn btn-dark btn-sm">Update</a>
+                                    <a href="{{ route('branch.destroy', $branch->id) }}"
+                                        class="edit btn btn-danger btn-sm">Delete</a>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#branch{{ $branch->id }}">
+                                        view
+                                    </button>
+
+                                    <div class="modal fade" id="branch{{ $branch->id }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="branch' . $row->id . 'Label" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="branch' . $row->id . 'Label">
+                                                        {{$branch->address}} </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div> <strong>Number</strong> : {{ $branch->number }}</div>
+                                                            <div> <strong>Tables</strong> : {{ $branch->tables }}</div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div> <strong>Address</strong> :{{ $branch->address }}</div>
+                                                            <div> <strong>Open Date</strong> : {{ $branch->open_date }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -45,37 +97,7 @@
     </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript">
-        $(function() {
-            var table = $('.data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('branch.index') }}",
-                columns: [{
-                        data: 'number',
-                        name: 'number'
-                    },
-                    {
-                        data: 'address',
-                        name: 'address'
-                    },
-                    {
-                        data: 'tables',
-                        name: 'tables'
-                    },
-                    {
-                        data: 'open_date',
-                        name: 'open Date'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
-
-        });
+    <script>
+        let table = new DataTable('.table');
     </script>
 @endsection

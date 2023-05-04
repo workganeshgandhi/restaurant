@@ -16,10 +16,13 @@ class CreateManagersTable extends Migration
         Schema::create('managers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('email');
+            $table->string('address');
             $table->char('mobile')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->unsignedInteger('salary_id');
+            $table->bigInteger('national_id');
             $table->unsignedInteger('branch_id');
             $table->date('join_date');
             $table->boolean('salary_state');

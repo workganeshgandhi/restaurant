@@ -12,7 +12,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item active">Managers</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,70 +25,100 @@
                 <div class="card-header">
                     <h3 class="card-title">Information</h3>
                 </div>
-                <div class="row card-body">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="FirstName">First Name</label>
-                            <input type="text" class="form-control" id="FirstName" placeholder="First Name">
+                <form action="{{ route('managers.store') }}" method="post">
+                    @csrf
+                    <div class="row card-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" value="{{ old('name') }}" name="name" class="form-control"
+                                    id="name" placeholder="Name">
+                                @error('name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" value="{{ old('email') }}" name="email" class="form-control"
+                                    id="email" placeholder="Email">
+                                @error('email')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="Mobile">Mobile</label>
+                                <input type="number" value="{{ old('mobile') }}" name="mobile" class="form-control"
+                                    id="Mobile" placeholder="Mobile">
+                                @error('mobile')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="Address">Address</label>
+                                <input type="text" value="{{ old('address') }}" name="address" class="form-control"
+                                    id="Address" placeholder="Address">
+                                @error('address')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <label for="SecondName">Second Name</label>
-                            <input type="text" class="form-control" id="SecondName" placeholder="Second Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="LastName">Last Name</label>
-                            <input type="text" class="form-control" id="LastName" placeholder="Last Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="Mobile">Mobile</label>
-                            <input type="number" class="form-control" id="Mobile" placeholder="Mobile">
-                        </div>
-                        <div class="form-group">
-                            <label for="Address">Address</label>
-                            <input type="text" class="form-control" id="Address" placeholder="Address">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="NationalID">National ID</label>
+                                <input type="number" value="{{ old('national_id') }}" name="national_id"
+                                    class="form-control" id="NationalID" placeholder="National ID">
+                                @error('national_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="">Salary</label>
+                                <select name="salary_id" id="" class="form-control">
+                                    @foreach ($salaries as $salary)
+                                        <option {{ old('salary_id') == $salary->id ? 'selected' : '' }}
+                                            value="{{ $salary->id }}">{{ $salary->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('salary_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="">Branch</label>
+                                <select name="branch_id" id="" class="form-control">
+                                    @foreach ($branches as $branch)
+                                        <option {{ old('branch_id') == $branch->id ? 'selected' : '' }}
+                                            value="{{ $branch->id }}">{{ $branch->address }}</option>
+                                    @endforeach
+                                </select>
+                                @error('branch_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="JoinDate">Join Date</label>
+                                <input type="date" value="{{ old('join_date') }}" name="join_date" class="form-control"
+                                    id="JoinDate" placeholder="Join Date">
+                                @error('join_date')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" value="{{ old('password') }}" name="password" class="form-control"
+                                    id="password" placeholder="Password">
+                                @error('password')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
 
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="NationalID">National ID</label>
-                            <input type="number" class="form-control" id="NationalID" placeholder="National ID">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Salary</label>
-                            <select name="salay" id="" class="form-control">
-                                <option value="1">Manager</option>
-                                <option value="2">Superviosr</option>
-                                <option value="3">Cooker</option>
-                                <option value="4">Assistant cook</option>
-                                <option value="5">Cashier</option>
-                                <option value="6">Waiter</option>
-                                <option value="7">Delivery Boy</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Branch</label>
-                            <select name="branch" id="" class="form-control">
-                                <option value="">Maadi</option>
-                                <option value="">Moqatam</option>
-                                <option value="">menufia</option>
-                                <option value="">alex</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="JoinDate">Join Date</label>
-                            <input type="date" class="form-control" id="JoinDate" placeholder="Join Date">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                        <div class="w-100">
+                            <button type="submit" class="btn btn-sm btn-info w-100"> Submit</button>
                         </div>
                     </div>
-
-                    <div class="w-100">
-                        <button class="btn btn-sm btn-info w-100"> Submit</button>
-                    </div>
-                </div>
+                </form>
             </div>
 
         </div>

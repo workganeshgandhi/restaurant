@@ -38,6 +38,14 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label for="code">Code</label>
+                                <input type="text" name="code" value="{{ $offer->code }}" class="form-control" id="code"
+                                    placeholder="code">
+                                @error('code')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label for="start_at">Start_at</label>
                                 <input type="date" name="start_at" value="{{ $offer->start_at }}" class="form-control"
                                     id="start_at" placeholder="start_at">

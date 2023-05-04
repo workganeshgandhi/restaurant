@@ -16,60 +16,8 @@ class WaitersController extends Controller
 {
     public function index(Request $request)
     {
-        //return $data = Waiter::with('branch')->get();
-        if ($request->ajax()) {
-            $data = Waiter::with('branch')->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $btn = '
-                    <a href="' . route("waiter.edit", $row->id) . '" class="edit btn btn-dark btn-sm">Update</a>
-                    <a href="' . route("waiter.destroy", $row->id) . '" class="edit btn btn-danger btn-sm">Delete</a>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#waiter' . $row->id . '">
-                    view
-                    </button>
-
-                    <div class="modal fade" id="waiter' . $row->id . '" tabindex="-1" role="dialog" aria-labelledby="waiter' . $row->id . 'Label" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="waiter' . $row->id . 'Label">' . $row->name . '</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                           <div class="row">
-                           <div class="col-md-6">
-                           <div> <strong>Name</strong>  : ' . $row->name . '</div>
-                           <div><strong>Address</strong>  : ' . $row->address . '</div>
-                           <div><strong>Mobile</strong>  : ' . $row->mobile . '</div>
-                           <div> <strong>Salary</strong> :' . $row->salary->mount . '</div>
-                           </div>
-                           <div class="col-md-6">
-                           <div> <strong>National_id</strong> : ' . $row->national_id . '</div>
-                           <div> <strong>Join_date</strong> : ' . $row->join_date . '</div>
-                           <div> <strong>Branch</strong> :' . $row->branch->address . '</div>
-                           </div>
-                           </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
-
-                    ';
-
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('manager::pages.waiter.index');
+         $waiters = Waiter::with('branch','salary')->get();
+        return view('manager::pages.waiter.index',compact('waiters'));
     }
 
     public function create()

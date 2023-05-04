@@ -19,70 +19,9 @@ class MainCategoriesController extends Controller
 {
     public function index(Request $request)
     {
+        $mains = MainCategory::with('categories')->get();
 
-        if ($request->ajax()) {
-            $data = MainCategory::with('categories')->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $categories = '';
-                    if (!$row->categories->isEmpty()) {
-                        foreach ($row->categories as $category) {
-                            $categories .= '<a class="btn btn-sm btn-info mr-2 ml-2" href="' . route('maincategory.index') . '"> ' . $category->name . ' </a>';
-                        }
-                    } else {
-                        $categories = 'No Categories Avilable Yet';
-                    }
-                    $decoded = json_decode($row->images);
-                    $images = '';
-                    foreach ($decoded as $image) {
-                        $path = asset('uploaded/MainCategory/' . $image);
-                        $images .= '<img class="image-style mr-4" src="' . $path . '" alt="">';
-                    }
-                    $btn = '
-
-                    <a href="' . route("maincategory.edit", $row->id) . '" class="edit btn btn-dark btn-sm">Update</a>
-                    <a href="' . route("maincategory.destroy", $row->id) . '" class="edit btn btn-danger btn-sm">Delete</a>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#maincategory' . $row->id . '">
-                    view
-                    </button>
-
-                    <div class="modal fade" id="maincategory' . $row->id . '" tabindex="-1" role="dialog" aria-labelledby="maincategory' . $row->id . 'Label" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="maincategory' . $row->id . 'Label">' . $row->name . '</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                           <div class="w-100 mb-4 d-flex justify-content-center">
-                           <div>' . $images . '</div>
-                           </div>
-
-                           <div class="w-100 d-flex justify-content-start">
-                           <strong> Categories : </strong>
-                           ' . $categories . '
-                           </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
-
-                    ';
-
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('manager::pages.maincategory.index');
+        return view('manager::pages.maincategory.index', compact('mains'));
     }
     public function create()
     {
@@ -224,8 +163,7 @@ class MainCategoriesController extends Controller
                         session()->flash('error', 'wrong way');
                         return redirect()->route('maincategory.index');
                     }
-                }
-                else {
+                } else {
                     session()->flash('success', 'deleted successfuly');
                     return redirect()->route('maincategory.index');
                 }

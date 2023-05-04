@@ -37,7 +37,7 @@
         <!-- /.content-header -->
         <div class="content">
             <div class="container-fluid">
-                <table class="table data-table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -45,7 +45,64 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($categories as $index => $category)
+                            <tr>
+                                <td> {{ $category->name }} </td>
+                                <td>
+                                    <a href="{{ route('category.edit', $category->id) }}"
+                                        class="edit btn btn-dark btn-sm">Update</a>
+                                    <a href="{{ route('category.destroy', $category->id) }}"
+                                        class="edit btn btn-danger btn-sm">Delete</a>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#category{{ $category->id }}">
+                                        view
+                                    </button>
+                                    <div class="modal fade" id="category{{ $category->id }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="category{{ $category->id }}Label" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="category{{ $category->id }}Label">
+                                                        {{ $category->name }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="w-100 mt-4 d-flex justify-content-center">
+                                                        <div>
+                                                            <?php $decoded = json_decode($category->images);
+                                                            ?>
+                                                            @foreach ($decoded as $image)
+                                                                <img class="image-style mr-4"
+                                                                    src="{{ asset('uploaded/Category/' . $image) }}"
+                                                                    alt="">
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-100 d-flex justify-content-start">
+                                                        <strong> Main Category : </strong>
+                                                        {{ $category->main_category->name }}
+                                                    </div>
+                                                    <div class="w-100 d-flex justify-content-start">
+                                                        <strong> price : </strong>
+                                                        {{ $category->price }}
+                                                    </div>
 
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -54,24 +111,6 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-        $(function() {
-            var table = $('.data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('category.index') }}",
-                columns: [{
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
-
-        });
+        let table = new DataTable('.table');
     </script>
 @endsection

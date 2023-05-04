@@ -14,55 +14,8 @@ class SalariesController extends Controller
 {
     public function index(Request $request)
     {
-        //return $data = Salary::get();
-        if ($request->ajax()) {
-            $data = Salary::get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $btn = '
-                    <a href="' . route("salary.edit", $row->id) . '" class="edit btn btn-dark btn-sm">Update</a>
-                    <a href="' . route("salary.destroy", $row->id) . '" class="edit btn btn-danger btn-sm">Delete</a>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#salary' . $row->id . '">
-                    view
-                    </button>
-
-                    <div class="modal fade" id="salary' . $row->id . '" tabindex="-1" role="dialog" aria-labelledby="salary' . $row->id . 'Label" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="salary' . $row->id . 'Label">' . $row->name . '</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                           <div class="row">
-                           <div class="col-md-6">
-                           <div> <strong>Name</strong>  : ' . $row->name . '</div>
-                           </div>
-                           <div class="col-md-6">
-                           <div> <strong>Mount</strong> : ' . $row->mount . '</div>
-                           </div>
-                           </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
-
-                    ';
-
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('manager::pages.salary.index');
+        $salaries = Salary::get();
+        return view('manager::pages.salary.index', compact('salaries'));
     }
 
     public function create()

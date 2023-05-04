@@ -15,8 +15,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <a href="{{ route('salary.create') }}" class="btn btn-info btn-sm"> <i
-                                    class="fas fa-plus"></i> New Salary </a>
+                            <a href="{{ route('salary.create') }}" class="btn btn-info btn-sm"> <i class="fas fa-plus"></i>
+                                New Salary </a>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,7 +25,7 @@
         <!-- /.content-header -->
         <div class="content">
             <div class="container-fluid">
-                <table class="table data-table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -34,6 +34,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($salaries as $salary)
+                            <tr>
+                                <td>{{ $salary->name }}</td>
+                                <td>{{ $salary->mount }}</td>
+                                <td>
+                                    <a href="{{ route('salary.edit', $salary->id) }}"
+                                        class="edit btn btn-dark btn-sm">Update</a>
+                                    <a href="{{ route('salary.destroy', $salary->id) }}"
+                                        class="edit btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        @endforeach
+
 
                     </tbody>
                 </table>
@@ -43,28 +56,6 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-        $(function() {
-            var table = $('.data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('salary.index') }}",
-                columns: [{
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'mount',
-                        name: 'mount'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
-
-        });
+        let table = new DataTable('table');
     </script>
 @endsection

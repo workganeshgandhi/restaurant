@@ -15,76 +15,9 @@ class CashiersController extends Controller
 {
     public function index(Request $request)
     {
-        // return $data = Cashier::with('branch')->get();
-        if ($request->ajax()) {
-            $data = Cashier::with('branch')->with('salary')->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
+        $cashiers = Cashier::with('branch')->get();
 
-                    $btn = '
-                    <a href="' . route("cashier.edit", $row->id) . '" class="edit btn btn-dark btn-sm">Update</a>
-                    <a href="' . route("cashier.destroy", $row->id) . '" class="edit btn btn-danger btn-sm">Delete</a>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#cashier' . $row->id . '">
-                    view
-                    </button>
-                    <div class="modal fade" id="cashier' . $row->id . '" tabindex="-1" role="dialog" aria-labelledby="cashier' . $row->id . 'Label" aria-hidden="true" >
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="cashier' . $row->id . 'Label">' . $row->name . '</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="d-flex justify-content-between">
-                            <div>
-                            <strong> Name : </strong>
-                            ' . $row->name . '
-                            </div>
-                            <div>
-                            <strong> Address : </strong>
-                            ' . $row->address . '
-                            </div>
-                            <div >
-                            <strong> Address : </strong>
-                            ' . $row->mobile . '
-                            </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                            <div>
-                            <strong> Branch : </strong>
-                            ' . $row->branch->address . '
-                            </div>
-                            <div>
-                            <strong> Salary : </strong>
-                            ' . $row->salary->mount . '
-                            </div>
-                            <div >
-                            <strong> National ID : </strong>
-                            ' . $row->national_id . '
-                            </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                        </div>
-
-                    </div>
-                    </div>
-
-
-                    ';
-
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('manager::pages.cashier.index');
+        return view('manager::pages.cashier.index', compact('cashiers'));
     }
 
     public function create()

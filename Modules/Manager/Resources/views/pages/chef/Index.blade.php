@@ -25,7 +25,7 @@
         <!-- /.content-header -->
         <div class="content">
             <div class="container-fluid">
-                <table class="table data-table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -36,7 +36,65 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($chefs as $chef)
+                        <tr>
+                            <td>{{ $chef->name }}</td>
+                            <td>{{ $chef->mobile }}</td>
+                            <td>{{ $chef->address }}</td>
+                            <td>{{ $chef->branch->address }}</td>
+                            <td>
+                                <a href="{{ route('chef.edit', $chef->id) }}"
+                                    class="edit btn btn-dark btn-sm">Update</a>
+                                <a href="{{ route('chef.destroy', $chef->id) }}"
+                                    class="edit btn btn-danger btn-sm">Delete</a>
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="#chef{{ $chef->id }}">
+                                    view
+                                </button>
 
+                                <div class="modal fade" id="chef{{ $chef->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="chef{{ $chef->id }}Label"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="chef{{ $chef->id }}Label">
+                                                    {{ $chef->name }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="chef">
+                                                    <div class="col-md-6">
+                                                        <div> <strong>Name</strong> : {{ $chef->name }}</div>
+                                                        <div><strong>Address</strong> : {{ $chef->address }}</div>
+                                                        <div><strong>Mobile</strong> : {{ $chef->mobile }}</div>
+                                                        <div> <strong>Salary</strong> :{{ $chef->salary->mount }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div> <strong>National_id</strong> : {{ $chef->national_id }}
+                                                        </div>
+                                                        <div> <strong>Join_date</strong> : {{ $chef->join_date }}
+                                                        </div>
+                                                        <div> <strong>Branch</strong> :{{ $chef->branch->address }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -45,36 +103,6 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-        $(function() {
-            var table = $('.data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('chef.index') }}",
-                columns: [{
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'mobile',
-                        name: 'mobile'
-                    },
-                    {
-                        data: 'address',
-                        name: 'address'
-                    },
-                    {
-                        data: "branch.address",
-                        name: 'branch'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
-
-        });
+       let table = new DataTable('.table');
     </script>
 @endsection

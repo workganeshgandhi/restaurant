@@ -7,12 +7,28 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard</h1>
+                        <ol class="breadcrumb">
+
+                            <li class="breadcrumb-item mr-4">Managers : <strong
+                                    class="text-danger">{{ App\Models\Manager::count() }} </strong>
+                            </li>
+                            <li>
+                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <a rel="alternate" hreflang="{{ $localeCode }}"
+                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{-- {{ $properties['native'] }} --}}
+                                        <img style="width: 20px ; height: 20px;"
+                                            src="{{ asset($properties['native'] == 'English' ? 'web_files/assets/img/english.png' : 'web_files/assets/img/arabic.png') }}"
+                                            alt="">
+                                    </a>
+                                @endforeach
+                            </li>
+                        </ol>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <a href="{{ route('managers.create') }}" class="btn btn-info btn-sm"> <i
+                                    class="fas fa-plus"></i> New Manager </a>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -21,53 +37,79 @@
         <!-- /.content-header -->
         <div class="content">
             <div class="container-fluid">
-                <table class="table" id="workers">
+                <table class="table">
                     <thead>
                         <tr>
                             <th scope="col"> # </th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Mobile</th>
-                            <th scope="col">Branch</th>
-                            <th scope="col">Salary state</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">email</th>
+                            <th scope="col">branch</th>
+                            <th scope="col">join date</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td> 1</td>
-                            <td>Amery</td>
-                            <td>Grant</td>
-                            <td>01279783447</td>
-                            <td>menufia</td>
-                            <td> <a href="" style="color: unset;"> <i class="far fa-window-close"
-                                        style="font-size: 25px; color: red ;"></i></a></td>
-                            <td>
-                                <a href="" style="color: unset;"> <i class="fas fa-edit"
-                                        style="font-size: 25px; color: orange ;"></i></a>
+                        @foreach ($managers as $index => $manager)
+                            <tr>
+                                <td> {{ $index }}</td>
+                                <td>{{ $manager->name }}</td>
+                                <td>{{ $manager->email }}</td>
+                                <td>{{ $manager->branch->address }}</td>
+                                <td>{{ $manager->join_date }}</td>
+                                <td>
+                                    <a href="{{ route('managers.edit', $manager->id) }}"
+                                        class="edit btn btn-dark btn-sm">Update</a>
+                                    <a href="{{ route('managers.destroy', $manager->id) }}"
+                                        class="edit btn btn-danger btn-sm">Delete</a>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#manager{{ $manager->id }}">
+                                        view
+                                    </button>
 
-                                <a href="" style="color: unset;"> <i class="far fa-window-close"
-                                        style="font-size: 25px; color: red;"></i></a>
-                            </td>
+                                    <div class="modal fade" id="manager{{ $manager->id }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="manager{{ $manager->id }}Label" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="manager{{ $manager->id }}Label">
+                                                        {{ $manager->name }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div> <strong>Name</strong> : {{ $manager->name }}</div>
+                                                            <div><strong>Address</strong> : {{ $manager->address }}</div>
+                                                            <div><strong>Mobile</strong> : {{ $manager->mobile }}</div>
+                                                            <div> <strong>Salary</strong> :{{ $manager->salary->mount }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div> <strong>National_id</strong> :
+                                                                {{ $manager->national_id }}
+                                                            </div>
+                                                            <div> <strong>Join_date</strong> : {{ $manager->join_date }}
+                                                            </div>
+                                                            <div> <strong>Branch</strong> :{{ $manager->branch->address }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        </tr>
-                        <tr>
-                            <td> 1</td>
-                            <td>Amery</td>
-                            <td>Grant</td>
-                            <td>01279783447</td>
-                            <td>menufia</td>
-                            <td> <a href="" style="color: unset;"> <i class="far fa-window-close"
-                                        style="font-size: 25px; color: red ;"></i></a></td>
-                            <td>
-                                <a href="" style="color: unset;"> <i class="fas fa-edit"
-                                        style="font-size: 25px; color: orange ;"></i></a>
+                                </td>
 
-                                <a href="" style="color: unset;"> <i class="far fa-window-close"
-                                        style="font-size: 25px; color: red;"></i></a>
-                            </td>
-
-                        </tr>
+                            </tr>
+                        @endforeach
 
                     </tbody>
                 </table>
@@ -77,8 +119,6 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            $('#workers').DataTable();
-        });
+        let table = new DataTable('.table')
     </script>
 @endsection
