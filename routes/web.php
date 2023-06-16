@@ -16,11 +16,14 @@ use Modules\Manager\Entities\supervisor;
 use Modules\Manager\Entities\DeliveryBoy;
 use Modules\Manager\Entities\MainCategory;
 use App\Http\Controllers\Web\WebController;
+use App\Http\Controllers\Web\PayMobController;
 use Modules\Manager\Entities\ChefAssistant;
 use Modules\Manager\Entities\DeliveryOrder;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::get('/', [WebController::class, 'index'])->name('index');
+Route::get('/', function(){
+    return redirect()->route('index');
+})->name('index');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -35,7 +38,16 @@ Route::group([
         Route::get('/menu', [WebController::class, 'menu'])->name('menu');
         Route::get('/about', [WebController::class, 'about'])->name('about');
     });
+    Route::get('/order/code/{code}', [WebController::class, 'checkcode']);
+
     Route::get('/maincategories', [NewOrderController::class, 'getMainCategories']);
     Route::post('/sendordertocashier', [NewOrderController::class, 'sendOrderToCashier']);
-    Route::get('/order/code/{code}', [WebController::class, 'checkcode']);
+
+    Route::get('/payment/callback', [NewOrderController::class, 'callback'])->name('callback');
 });
+
+Route::get('/pay/test', function () {
+    return view('pay_test');
+})->name('pay_test');
+Route::post('/pay/credit', [PayMobController::class, 'credit'])->name('credit');
+Route::get('/pay/callback', [PayMobController::class, 'callback'])->name('callback');

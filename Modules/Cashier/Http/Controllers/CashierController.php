@@ -25,7 +25,7 @@ class CashierController extends Controller
     {
         $orders = Order::when($request['number'], function ($q) use ($request) {
             return $q->where('number', $request['number']);
-        })->with('cashier', 'branch', 'offer')->latest()->get();
+        })->with('cashier', 'branch', 'offer')->latest()->paginate(8);
         return response()->json($orders);
     }
     public function getsingleorder($id)

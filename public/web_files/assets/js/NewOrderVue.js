@@ -32,12 +32,14 @@ new Vue({
     },
     methods: {
         onComplete: function () {
-            alert('Yay. Done!');
             order = [{ 'orderCategores': this.ReceiptArray }, { 'subTotal': this.subtotalvalue },
             { 'totalPrice': this.TotalOrderValue }, { 'deliveryFees': this.deliveryFees }, { 'offerId': this.offerCode.id }, { 'code': this.code }, { 'name': this.name }, { 'mobile': this.mobile }, { 'address': this.address }];
             axios.post("/sendordertocashier", order)
-                // .then(res => (console.log(res.data)))
-                .then(res => (console.log(res.data)))
+                .then(res => {
+                    //console.log(res);
+                    alert('you will redirect to payment page now')
+                    window.location.href = 'https://portal.weaccept.co/api/acceptance/iframes/' + res.data['iframe'] + '?payment_token=' + res.data['token'];
+                })
                 .catch(error => {
                     this.errorMessage = error.message;
                     console.error("There was a send order error !", error);

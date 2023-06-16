@@ -36,6 +36,7 @@ Route::group([
         Route::get('/', 'CashierController@index')->name('cashier.index');
         Route::get('/orders', 'CashierController@orders')->name('cashier.orders');
         Route::post('/getorders', 'CashierController@getorders')->name('cashier.getorders');
+
         Route::get('/getsingleorder/{id}', 'CashierController@getsingleorder')->name('cashier.getsingleorder');
         Route::get('/shwoonlineorders', 'CashierController@shwoonlineorders')->name('cashier.shwoonlineorders');
         Route::get('/getBranchDeliveryBoys', 'CashierController@getBranchDeliveryBoys')->name('cashier.getBranchDeliveryBoys');

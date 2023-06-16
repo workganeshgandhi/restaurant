@@ -143,59 +143,80 @@
 
 @section('scripts')
     <script>
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-            "November", "December"
+        var monthNames = ["January", "February",
+            "March", "April", "May", "June",
+            "July", "August", "September",
+            "October", "November", "December"
         ];
         var today = new Date();
         var lat6Monthes = [];
-        for (let i = 6; i > 0; i--) {
+        for (let i = 7; i > 0; i--) {
             var d = new Date(today.getFullYear(), today.getMonth() - i, 1);
             lat6Monthes.push(monthNames[d.getMonth()]);
         }
-        console.log(lat6Monthes);
 
+        const Http = new XMLHttpRequest();
+        const url = '/getOrdersByMonth';
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e, orders) => {
+           var res = JSON.parse(Http.responseText)
+            var orders = [];
+            for (let i = 0; i < 6; i++) {
+                let ord = 0;
+                let delord = 0;
+                if (res[0][lat6Monthes[i]] != undefined) {
+                    ord = res[0][lat6Monthes[i]];
+                }
+                if (res[1][lat6Monthes[i]] != undefined) {
+                    delord = res[1][lat6Monthes[i]];
+                }
+                orders[lat6Monthes[i]] = ord + delord
+            }
 
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [lat6Monthes[0], lat6Monthes[1], lat6Monthes[2], lat6Monthes[3], lat6Monthes[4],
-                    lat6Monthes[5]
-                ],
-                datasets: [{
-                    label: 'number of orders',
-                    data: [70, 60, 100, 120, 152, 168, 35],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: [lat6Monthes[0], lat6Monthes[1], lat6Monthes[2], lat6Monthes[3],
+                        lat6Monthes[4], lat6Monthes[5]
                     ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                    datasets: [{
+                        label: 'number of orders',
+                        data: [orders[lat6Monthes[0]], orders[lat6Monthes[1]],
+                            orders[lat6Monthes[2]], orders[lat6Monthes[3]],
+                            orders[lat6Monthes[4]], orders[lat6Monthes[5]],
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         var today = new Date();
-
         $('#time').html(today.getHours() + ':' + today.getMinutes());
-
         $('#date').html(today.toDateString());
     </script>
 @endsection

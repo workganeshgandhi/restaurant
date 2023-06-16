@@ -12,9 +12,11 @@
 */
 
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Modules\Manager\Entities\Order;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Modules\Manager\Entities\DeliveryOrder;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Month;
 
 Route::group([
@@ -136,29 +138,22 @@ Route::group([
             Route::post('/update/{id}', 'WaitersController@update')->name('waiter.update');
             Route::get('/destroy/{id}', 'WaitersController@destroy')->name('waiter.destroy');
         });
-
-        Route::get('/getLast6MonthesOrders', function () {
-            // return [Carbon::now()->subMonth(6)];
-            // return $orders = Order::get()->groupBy(function($date) {
-            //     //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
-            //     return Carbon::parse($date->created_at)->format('m'); // grouping by months
-            // });
-            // return Carbon::now()->subMonth(5)->month;
-            // return $orders = Order::whereMonth('created_at', Carbon::now()->subMonth(5)->month)->get()->groupBy(function ($date) {
-            //     return Carbon::parse($date->created_at)->format('m'); // grouping by months
-            // });
-
-
-            // return $orders = Order::whereBetween('created_at', [Carbon::now()->subMonth(6), Carbon::now()])->count()->get()->groupBy(function ($date) {
-            //     return Carbon::parse($date->created_at)->format('m'); // grouping by months
-            // });
-
-
-            return $orders = DB::table('orders')->select(DB::raw('count(*) as num'))->whereBetween('created_at', [Carbon::now()->subMonth(6), Carbon::now()])->get()->groupBy(function ($date) {
-                return Carbon::parse($date->created_at)->format('m'); // grouping by months
-            });
-        });
     });
 });
 
 
+Route::get('/getOrdersByMonth', function () {
+    $branchorders = Order::all()->sortBy(function ($item) {
+        return $item->created_at->month;
+    })->groupBy(function ($item) {
+        return $item->created_at->format("F");
+    })->map->count();
+
+    $deliverorders = DeliveryOrder::all()->sortBy(function ($item) {
+        return $item->created_at->month;
+    })->groupBy(function ($item) {
+        return $item->created_at->format("F");
+    })->map->count();
+
+    return $orders = [$branchorders, $deliverorders];
+});
