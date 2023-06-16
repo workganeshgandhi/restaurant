@@ -42,6 +42,7 @@
                                         </th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Cashier</th>
+                                        <th scope="col">branch</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -51,7 +52,8 @@
                                         <th scope="row">@{{ ++index }}</th>
                                         <td>@{{ order.number }}</td>
                                         <td>@{{ order.total_price }}</td>
-                                        <td>@{{ order.number }}</td>
+                                        <td>@{{ order.cashier.name }}</td>
+                                        <td>@{{ order.branch.address }}</td>
                                         <td><button class="btn btn-sm btn-info" @click="showORdersDetails(order.id)">
                                                 show</button>
                                         </td>
